@@ -18,3 +18,16 @@ def accept_cookies(browser):
         EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
     ).click()
     logger.info("Aceitando cookies")
+
+
+def get_card_jobs(browser):
+    logger.info("Buscando vagas")
+
+    wait = WebDriverWait(browser, 10)
+
+    cards = wait.until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".resultContent"))
+    )
+    logger.info(f"Encontrados {len(cards)} vagas")
+
+    return cards
