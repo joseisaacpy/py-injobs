@@ -31,3 +31,19 @@ def get_card_jobs(browser):
     logger.info(f"Encontrados {len(cards)} vagas")
 
     return cards
+
+
+def extract_job_data(card):
+    title = card.find_element(By.CSS_SELECTOR, ".jobTitle").text
+    company = card.find_element(By.CSS_SELECTOR, "[data-testid='company-name']").text
+    try:
+        location = card.find_element(
+            By.CSS_SELECTOR, "[data-testid='text-location']"
+        ).text
+    except:
+        location = "Não informado"
+    return {
+        "title": title,
+        "company": company,
+        "location": location,
+    }
