@@ -66,3 +66,14 @@ def collect_jobs(cards):
     for card in cards:
         jobs.append(extract_job_data(card))
     return jobs
+
+
+def save_to_csv(jobs):
+    import pandas as pd
+
+    df = pd.DataFrame(jobs)
+    df.to_csv("vagas.csv", index=False)
+
+    logger.info("Vagas salvas em vagas.csv")
+
+    print(df)
