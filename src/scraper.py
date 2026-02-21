@@ -1,3 +1,4 @@
+import pandas as pd
 from src.logger import init_logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -69,8 +70,6 @@ def collect_jobs(cards):
 
 
 def save_to_csv(jobs):
-    import pandas as pd
-
     df = pd.DataFrame(jobs)
     df.to_csv("vagas.csv", index=False)
 
