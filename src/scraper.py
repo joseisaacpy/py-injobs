@@ -1,6 +1,7 @@
 from src.logger import init_logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 
 logger = init_logger()
@@ -34,14 +35,25 @@ def get_card_jobs(browser):
 
 
 def extract_job_data(card):
-    title = card.find_element(By.CSS_SELECTOR, ".jobTitle").text
-    company = card.find_element(By.CSS_SELECTOR, "[data-testid='company-name']").text
+    try:
+        title = card.find_element(By.CSS_SELECTOR, ".jobTitle").text
+    except NoSuchElementException:
+        title = "Não informado"
+
+    try:
+        company = card.find_element(
+            By.CSS_SELECTOR, "[data-testid='company-name']"
+        ).text
+    except NoSuchElementException:
+        company = "Não informado"
+
     try:
         location = card.find_element(
             By.CSS_SELECTOR, "[data-testid='text-location']"
         ).text
-    except:
+    except NoSuchElementException:
         location = "Não informado"
+
     return {
         "title": title,
         "company": company,
