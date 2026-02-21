@@ -59,3 +59,10 @@ def extract_job_data(card):
         "company": company,
         "location": location,
     }
+
+
+def collect_jobs(cards):
+    jobs = []
+    for card in cards:
+        jobs.append(extract_job_data(card))
+    return jobs
